@@ -3,5 +3,13 @@ Invcook
 
 Invcook
 
-Makes it so your players can't curse! You can configure your curse words and your curse messages!
+Cook food with your chef! Instantly cooks your food for you!
 
+command:
+
+/cook
+
+permissions:
+
+cook.command-Allows use of the /cook command!
+cook.cooldown-Allows the user to bypass the 5 minute cooldown!
