@@ -1,0 +1,185 @@
+Invcook
+=======
+
+Invcook
+
+Cook food with your chef! Instantly cooks your food for you!
+
+command:
+
+/cook
+
+permissions:
+
+cook.command-Allows use of the /cook command!
+cook.cooldown-Allows the user to bypass the 5 minute cooldown!
+
+
+
+
+
+package guildhub.moo.com;
+
+
+	
+	
+import java.util.ArrayList;
+import java.util.logging.Logger;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
+import org.bukkit.plugin.java.JavaPlugin;
+	public final class Invcook extends JavaPlugin {
+		
+	public final Logger logger = Logger.getLogger("Minecraft");
+	public static Invcook plugin;
+	
+	
+	ArrayList<Player> cooldown = new ArrayList<Player>();
+
+	public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args)
+	{
+		final Player player = (Player) sender;
+		if(cooldown.contains(player)) {
+			 player.sendMessage(ChatColor.RED + 
+	                  "[Chef] I'm sorry! I am on my break!");
+		return true;
+		}
+		if(commandLabel.equalsIgnoreCase("cook"))
+		{	
+		if(args.length==0)
+		{
+			PlayerInventory pi = player.getInventory();
+	        if ((player.isOp() | player.hasPermission("cook.command"))) {
+	          @SuppressWarnings("deprecation")
+			int BlockId = player.getItemInHand().getType().getId();
+	          int amount = player.getItemInHand().getAmount();
+	          ItemStack inHand = player.getInventory().getItemInHand();
+	          if (((BlockId ==363 ? 1 : 0) != 0)) {
+	            ItemStack Rbeef = new ItemStack(Material.COOKED_BEEF, 
+	              amount);
+	            pi.removeItem(new ItemStack[] { inHand });
+	            pi.addItem(new ItemStack[] { Rbeef });
+	            player.sendMessage(ChatColor.GOLD + "[Chef] Cooked!");
+	            
+	        	if(!player.hasPermission("cook.cooldown")|!player.isOp()){
+					cooldown.add(player);
+			Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable()
+			{
+				public void run() {
+					cooldown.remove(player);
+				}
+				
+			},6000);
+			}
+	          }
+	            else if (BlockId == 319) {
+	                ItemStack Porkchop = new ItemStack(
+	                  Material.GRILLED_PORK, amount);
+	                pi.removeItem(new ItemStack[] { inHand });
+	                pi.addItem(new ItemStack[] { Porkchop });
+	                player.sendMessage(ChatColor.GOLD + "[Chef] Cooked!");
+	            	if(!player.hasPermission("cook.cooldown")|!player.isOp()){
+	    				cooldown.add(player);
+	    		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable()
+	    		{
+	    			public void run() {
+	    				cooldown.remove(player);
+	    			}
+	    		},6000);
+	    		}
+	            } else if (BlockId == 349) {
+	                ItemStack Fish = new ItemStack(Material.COOKED_FISH, 
+	                  amount);
+	                pi.removeItem(new ItemStack[] { inHand });
+	                pi.addItem(new ItemStack[] { Fish });
+	                player.sendMessage(ChatColor.GOLD + "[Chef] Cooked!");
+	            	if(!player.hasPermission("cook.cooldown")|!player.isOp()){
+	    				cooldown.add(player);
+	    		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable()
+	    		{
+	    			public void run() {
+	    				cooldown.remove(player);
+	    			}
+	    			
+	    		},6000);
+	    		}
+	            } else if (BlockId == 365) {
+	                ItemStack Chicken = new ItemStack(
+	                  Material.COOKED_CHICKEN, amount);
+	                pi.removeItem(new ItemStack[] { inHand });
+	                pi.addItem(new ItemStack[] { Chicken });
+	                player.sendMessage(ChatColor.GOLD + "[Chef] Cooked!");
+	            	if(!player.hasPermission("cook.cooldown")|!player.isOp()){
+	    				cooldown.add(player);
+	    		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable()
+	    		{
+
+	    			
+	    			public void run() {
+	    				cooldown.remove(player);
+	    				
+	    			}
+	    			
+	    		},6000);
+	    		}
+	            } else if (BlockId == 392) {
+	                ItemStack Potato = new ItemStack(
+	                  Material.BAKED_POTATO, amount);
+	                pi.removeItem(new ItemStack[] { inHand });
+	                pi.addItem(new ItemStack[] { Potato });
+	                player.sendMessage(ChatColor.GOLD + "[Chef] Cooked!");
+	            	if(!player.hasPermission("cook.cooldown")|!player.isOp()){
+	    				cooldown.add(player);
+	    		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable()
+	    		{
+
+	    			
+	    			public void run() {
+	    				cooldown.remove(player);
+	    				
+	    			}
+	    			
+	    		},getConfig().getInt("cooldowntime"));
+	    		}
+	            } else {
+	                player.sendMessage(ChatColor.RED + 
+	                  "[Chef] I'm sorry! I can't cook that!");
+	              }
+							
+				}
+		}
+	
+		}	
+		return false;
+		
+	
+	
+	}
+	public void onEnable(){
+		getConfig().options().copyDefaults(true);
+		saveConfig();
+		
+	}
+	
+	
+	
+	
+				
+			
+			
+		}
+	
+	
+	
+	
+
+
+
+
